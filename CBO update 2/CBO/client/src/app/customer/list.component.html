@@ -1,0 +1,102 @@
+﻿<h1>Customers</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add Customer</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+          <th style="width: 30%">Name</th>
+          <th style="width: 20%">Bed No.</th>
+          <th style="width: 20%">No of Days</th>
+          <th style="width: 40%">Day of Entry</th>
+          <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let customer of customers">
+            <td>{{customer.title}} {{customer.firstName}} {{customer.lastName}}</td>
+            <td>{{customer.bed}}</td>
+            <td>{{customer.noOfDays}}</td>
+          
+            <td>{{customer.created | date: 'dd/MM/yyyy'}}</td>
+            <td style="white-space: nowrap">
+              <button (click)="openModal(customer)" class="btn btn-sm btn-outline-dark mr-1">
+                View report
+            </button>
+              <button (click)="addServiceModal(customer)" class="btn btn-sm btn-success mr-1">
+                    Add Service
+                </button>
+                <a routerLink="edit/{{customer.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteUser(customer.id)" class="btn btn-sm btn-danger btn-delete-customer" [disabled]="customer.isDeleting">
+                    <span *ngIf="customer.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!customer.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!customers">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Add Services</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <h1>{{customer.title}} {{customer.firstName}} {{customer.lastName}} </h1>
+      <form [formGroup]="formGroup">
+        <div class="form-group">
+          <label for="dateOfBirth">Meals</label>
+          <div class="input-group">
+            <input class="form-control" formControlName="meals" min="0" type="number" >
+          </div>
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirth">Clothes</label>
+            <div class="input-group">
+              <input class="form-control" formControlName="clothes" min="0" type="number" >
+            </div>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" formControlName="gym"  >
+            <label class="form-check-label">
+              Gym
+            </label>
+          </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="save()">Save</button>
+    </div>
+  </ng-template>
+
+  <ng-template #report let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Report</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <h1>{{customer.title}} {{customer.firstName}} {{customer.lastName}} </h1>
+      <form [formGroup]="formGroup">
+        <div class="form-group">
+          <label for="dateOfBirth">Meals:   {{customer.meals? customer.meals : '-'}}</label>
+        
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirth">Clothes:   {{customer.clothes?customer.clothes: '-'}}</label>
+           
+          </div>
+          <div class="form-group">
+            <label for="dateOfBirth">Gym:   {{customer.gym ? "Yes": "No"}}</label>
+            
+          </div>
+      </form>
+    </div>
+ 
+  </ng-template>

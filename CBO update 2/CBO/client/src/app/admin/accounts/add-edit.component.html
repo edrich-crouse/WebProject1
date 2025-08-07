@@ -1,0 +1,73 @@
+﻿<h1 *ngIf="isAddMode">Create Staff</h1>
+<h1 *ngIf="!isAddMode">Edit Staff</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+        <div class="form-group col">
+            <label>Title</label>
+            <select formControlName="title" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                <option value=""></option>
+                <option value="Mr">Mr</option>
+                <option value="Mrs">Mrs</option>
+                <option value="Miss">Miss</option>
+                <option value="Ms">Ms</option>
+            </select>
+            <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                <div *ngIf="f.title.errors.required">Title is required</div>
+            </div>
+        </div>
+        <div class="form-group col-5">
+            <label>First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+            </div>
+        </div>
+        <div class="form-group col-5">
+            <label>Last Name</label>
+            <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required">Last Name is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-7">
+            <label>Email</label>
+            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <label>Duration of Employment</label>
+            <select formControlName="howLong" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.howLong.errors }">
+                <option value=""></option>
+                <option value="1-3 months">1-3 months</option>
+                <option value="3-6 months">3-6 months</option>
+                <option value="6-9 months">6-9 months</option>
+            </select>
+            <div *ngIf="submitted && f.howLong.errors" class="invalid-feedback">
+                <div *ngIf="f.howLong.errors.required">How Long is Working? is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-7">
+           
+                <label>Job Description</label>
+                <textarea class="form-control" style="min-width: 100%" [ngClass]="{ 'is-invalid': submitted && f.jobDescription.errors }" formControlName="jobDescription"></textarea>
+                <div *ngIf="submitted && f.jobDescription.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.jobDescription.required">Job Description is required</div>
+                </div>
+        </div></div>
+
+
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+        <a routerLink="/customer" class="btn btn-link">Cancel</a>
+    </div>
+</form>

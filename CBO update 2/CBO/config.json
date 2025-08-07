@@ -1,0 +1,14 @@
+﻿{
+  "connectionString": "mongodb://localhost/CBO",
+  "secret": "CBO_SECRET",
+  "emailFrom": "verify@smartup.dk",
+  "smtpOptions": {
+    "host": "send.one.com",
+    "port": 465,
+    "secure": true,
+    "auth": {
+      "user": "verify@smartup.dk",
+      "pass": "Edrich.123456"
+    }
+  }
+}
